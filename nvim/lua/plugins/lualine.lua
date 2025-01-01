@@ -12,7 +12,7 @@ return {
     local filename = {
       'filename',
       file_status = true, -- displays file status (readonly status, modified status)
-      path = 0, -- 0 = just filename, 1 = relative path, 2 = absolute path
+      path = 1, -- 0 = just filename, 1 = relative path, 2 = absolute path
     }
 
     local hide_in_width = function()
@@ -36,7 +36,14 @@ return {
       symbols = { added = ' ', modified = ' ', removed = ' ' }, -- changes diff symbols
       cond = hide_in_width,
     }
-
+    local function tab_info()
+      local total_tabs = vim.fn.tabpagenr '$'
+      if total_tabs == 1 then
+        return '' -- 탭이 하나면 빈 문자열
+      end
+      local current_tab = vim.api.nvim_tabpage_get_number(0)
+      return string.format('Tabs: %d/%d', current_tab, total_tabs)
+    end
     require('lualine').setup {
       options = {
         icons_enabled = true,
@@ -48,11 +55,12 @@ return {
         component_separators = { left = '', right = '' },
         disabled_filetypes = { 'alpha', 'neo-tree' },
         always_divide_middle = true,
+        always_show_tabline = true,
       },
       sections = {
         lualine_a = { mode },
         lualine_b = { 'branch' },
-        lualine_c = { filename },
+        lualine_c = { filename, tab_info },
         lualine_x = { diagnostics, diff, { 'encoding', cond = hide_in_width }, { 'filetype', cond = hide_in_width } },
         lualine_y = { 'location' },
         lualine_z = { 'progress' },

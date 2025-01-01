@@ -7,13 +7,11 @@ config.font_size = 19
 
 config.enable_tab_bar = false
 config.window_decorations = "RESIZE"
-
 config.colors = {
 	foreground = "#dcd7ba",
 	background = "#1f1f28",
 
 	cursor_bg = "#c8c093",
-	cursor_fg = "#c8c093",
 	cursor_border = "#c8c093",
 
 	selection_fg = "#c8c093",

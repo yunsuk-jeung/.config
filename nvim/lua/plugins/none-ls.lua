@@ -18,6 +18,7 @@ return {
         'shfmt', -- Shell formatter
         'checkmake', -- linter for Makefiles
         'ruff', -- Python linter and formatter
+        'csharpier',
       },
       automatic_installation = true,
     }
@@ -30,6 +31,7 @@ return {
       formatting.shfmt.with { args = { '-i', '4' } },
       require('none-ls.formatting.ruff').with { extra_args = { '--extend-select', 'I' } },
       require 'none-ls.formatting.ruff_format',
+      formatting.csharpier,
     }
 
     local augroup = vim.api.nvim_create_augroup('LspFormatting', {})

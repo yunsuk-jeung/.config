@@ -15,6 +15,34 @@ return {
     'hrsh7th/cmp-nvim-lsp',
   },
   config = function()
+    -- Set global updatetime for responsiveness
+    vim.o.updatetime = 1000
+
+    -- Define a global variable to control diagnostic display
+    _G.diagnostics_enabled = true
+
+    -- Define a global function to toggle diagnostics
+    _G.toggle_diagnostics = function()
+      _G.diagnostics_enabled = not _G.diagnostics_enabled
+      if _G.diagnostics_enabled then
+        print 'Diagnostics enabled'
+      else
+        print 'Diagnostics disabled'
+      end
+    end
+    -- Create an autocmd for CursorHold, but check the toggle
+    vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
+      group = vim.api.nvim_create_augroup('float_diagnostic', { clear = true }),
+      callback = function()
+        if _G.diagnostics_enabled then
+          vim.diagnostic.open_float(nil, { focus = false })
+        end
+      end,
+    })
+
+    -- Map a key to toggle diagnostics
+    vim.api.nvim_set_keymap('n', '<leader>gw', '<cmd>lua toggle_diagnostics()<CR>', { noremap = true, silent = true })
+
     -- Brief aside: **What is LSP?**
     --
     -- LSP is an initialism you've probably heard, but might not understand what it is.
@@ -154,7 +182,14 @@ return {
       --    https://github.com/pmizio/typescript-tools.nvim
       --
       -- But for many setups, the LSP (`tsserver`) will work just fine
-      ts_ls = {}, -- tsserver is deprecated
+      ts_ls = {
+        root_dir = require('lspconfig.util').root_pattern 'tsconfig.sjon',
+        filetypes = { 'typescript', 'typescriptreact', 'tsx', 'javascript' },
+      }, -- tsserver is deprecated
+      eslint = {
+        root_dir = require('lspconfig.util').root_pattern('eslint.config.js', '.git'),
+        filetypes = { 'typescript', 'typescriptreact', 'tsx', 'javascript' },
+      },
       ruff = {},
       pylsp = {
         settings = {
@@ -172,6 +207,10 @@ return {
           },
         },
       },
+      omnisharp = {
+        root_dir = require('lspconfig.util').root_pattern('*.sln', '*.csproj'),
+      },
+
       html = { filetypes = { 'html', 'twig', 'hbs' } },
       cssls = {},
       tailwindcss = {},
