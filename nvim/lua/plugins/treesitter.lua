@@ -32,6 +32,7 @@ return { -- Highlight, edit, and navigate code
       'css',
       'html',
       'c_sharp',
+      'cpp',
     },
     -- Autoinstall languages that are not installed
     auto_install = true,
