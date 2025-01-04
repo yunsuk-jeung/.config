@@ -12,6 +12,16 @@ return {
       -- 폴딩 관련 단축키 설정
       vim.keymap.set('n', 'zR', require('ufo').openAllFolds)
       vim.keymap.set('n', 'zM', require('ufo').closeAllFolds)
+      for i = 0, 9 do
+        vim.keymap.set('n', 'zf' .. i, function()
+          if i == 0 then
+            vim.o.foldlevel = 99
+            print 'Fold Level set to 99'
+          end
+          vim.o.foldlevel = i
+          print('Fold Level set to ' .. i)
+        end, { noremap = true, silent = true })
+      end
 
       require('ufo').setup {
         provider_selector = function(bufnr, filetype, buftype)

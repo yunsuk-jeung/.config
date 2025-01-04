@@ -26,12 +26,12 @@ return {
       require('telescope').setup {
         defaults = {
           file_ignore_patterns = { '%__virtual.cs$' },
-          mappings = {
-            i = {
-              ['<C-u>'] = false,
-              ['<C-d>'] = false,
-            },
-          },
+          -- mappings = {
+          --   i = {
+          --     ['<C-u>'] = false,
+          --     ['<C-d>'] = false,
+          --   },
+          -- },
         },
         pickers = {
           colorscheme = {

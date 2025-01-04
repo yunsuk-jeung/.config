@@ -37,4 +37,6 @@ require('lazy').setup {
   require 'plugins.ufo',
   require 'plugins.cmake-tools',
   require 'plugins.rosyln',
+  require 'plugins.obsidian',
+  require 'plugins.noice',
 }
