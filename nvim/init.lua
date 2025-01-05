@@ -34,7 +34,7 @@ require('lazy').setup {
   require 'plugins.comment',
   require 'plugins.misc',
   require 'plugins.lazygit',
-  -- require 'plugins.auto-session',
+  require 'plugins.auto-session',
   require 'plugins.ufo',
   require 'plugins.cmake-tools',
   require 'plugins.rosyln',
