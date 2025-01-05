@@ -17,9 +17,10 @@ return {
           if i == 0 then
             vim.o.foldlevel = 99
             print 'Fold Level set to 99'
+          else
+            vim.o.foldlevel = i
+            print('Fold Level set to ' .. i)
           end
-          vim.o.foldlevel = i
-          print('Fold Level set to ' .. i)
         end, { noremap = true, silent = true })
       end
 

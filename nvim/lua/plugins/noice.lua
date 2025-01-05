@@ -31,5 +31,9 @@ return {
         lsp_doc_border = false, -- add a border to hover docs and signature help
       },
     }
+    require('notify').setup {
+      timeout = 1000,
+      stages = 'static',
+    }
   end,
 }

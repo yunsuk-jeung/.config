@@ -4,15 +4,15 @@ return {
     'seblj/roslyn.nvim',
     ft = { 'cs', 'razor' },
     dependencies = {
-      {
-        'tris203/rzls.nvim',
-        config = function()
-          require('rzls').setup {
-            on_attach = require 'plugins.lspattach',
-            capabilities = require 'plugins.lspcapabilities',
-          }
-        end,
-      },
+      -- {
+      --   'tris203/rzls.nvim',
+      --   config = function()
+      --     require('rzls').setup {
+      --       on_attach = require 'plugins.lspattach',
+      --       capabilities = require 'plugins.lspcapabilities',
+      --     }
+      --   end,
+      -- },
     },
     init = function()
       vim.filetype.add {
@@ -40,9 +40,9 @@ return {
           ),
         },
         config = {
-          on_attach = require 'plugins.lspattach',
-          capabilities = require 'plugins.lspcapabilities',
-          handlers = require 'rzls.roslyn_handlers',
+          -- on_attach = require 'plugins.lspattach',
+          -- capabilities = require 'plugins.lspcapabilities',
+          -- handlers = require 'rzls.roslyn_handlers',
           settings = {
             ['csharp|inlay_hints'] = {
               csharp_enable_inlay_hints_for_implicit_object_creation = true,

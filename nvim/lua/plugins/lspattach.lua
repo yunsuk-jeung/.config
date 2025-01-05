@@ -28,7 +28,7 @@ local on_attach = function(client, bufnr)
   -- end, 'Toggle inlay hints')
 
   -- See `:help K` for why this keymap
-  -- nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
+  nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
   nmap('<C-m-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
 
   -- Lesser used LSP functionality
