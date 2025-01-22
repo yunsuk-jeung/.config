@@ -41,4 +41,19 @@ vim.opt.shortmess:append 'c' -- Don't give |ins-completion-menu| messages (defau
 vim.opt.iskeyword:append '-' -- Hyphenated words recognized by searches (default: does not include '-')
 vim.opt.formatoptions:remove { 'c', 'r', 'o' } -- Don't insert the current comment leader automatically for auto-wrapping comments using 'textwidth', hitting <Enter> in insert mode, or hitting 'o' or 'O' in normal mode. (default: 'croql')
 vim.opt.runtimepath:remove '/usr/share/vim/vimfiles' -- Separate Vim plugins from Neovim in case Vim still in use (default: includes this path if Vim is installed)
-vim.opt.conceallevel = 1
+vim.opt.conceallevel = 0
+
+-- vim.api.nvim_create_autocmd('FileType', {
+--   pattern = 'markdown',
+--   callback = function()
+--     vim.opt_local.conceallevel = 1
+--   end,
+-- })
+--
+-- vim.api.nvim_create_autocmd('BufEnter', {
+--   callback = function()
+--     if vim.bo.filetype ~= 'markdown' then
+--       vim.opt_local.conceallevel = 0
+--     end
+--   end,
+-- })

@@ -110,5 +110,7 @@ return {
       -- A map for custom variables, the key should be the variable and the value a function
       substitutions = {},
     },
+
+    ui = { enable = false },
   },
 }

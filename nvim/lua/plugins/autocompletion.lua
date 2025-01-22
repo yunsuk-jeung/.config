@@ -143,6 +143,8 @@ return { -- Autocompletion
             buffer = '[Buffer]',
             path = '[Path]',
           })[entry.source.name]
+
+          vim_item = require('nvim-highlight-colors').format(entry, vim_item)
           return vim_item
         end,
       },

@@ -36,15 +36,7 @@ return {
       symbols = { added = ' ', modified = ' ', removed = ' ' }, -- changes diff symbols
       cond = hide_in_width,
     }
-    local recording_status = {
-      function()
-        return vim.fn.reg_recording() ~= '' and 'Recording @ ' .. vim.fn.reg_recording() or ''
-      end,
-      cond = function()
-        return vim.fn.reg_recording() ~= ''
-      end,
-      color = { fg = '#ff9e64', bg = '#2c323c' }, -- 표시 색상 설정
-    }
+
     local function tab_info()
       local total_tabs = vim.fn.tabpagenr '$'
       if total_tabs == 1 then
@@ -70,8 +62,18 @@ return {
       sections = {
         lualine_a = { mode },
         lualine_b = { 'branch' },
-        lualine_c = { filename, recording_status, tab_info },
-        lualine_x = { diagnostics, diff, { 'encoding', cond = hide_in_width }, { 'filetype', cond = hide_in_width } },
+        lualine_c = { filename, tab_info },
+        lualine_x = {
+          {
+            require('noice').api.statusline.mode.get,
+            cond = require('noice').api.statusline.mode.has,
+            color = { fg = '#ff9e64' },
+          },
+          diagnostics,
+          diff,
+          { 'encoding', cond = hide_in_width },
+          { 'filetype', cond = hide_in_width },
+        },
         lualine_y = { 'location' },
         lualine_z = { 'progress' },
       },

@@ -17,7 +17,7 @@ if vim.g.vscode then
   return {}
 end
 
--- Plugin setup using lazy.nvim
+-- Plugin etup using lazy.nvim
 require('lazy').setup {
   require 'plugins.neotree',
   require 'plugins.colortheme',
@@ -40,4 +40,13 @@ require('lazy').setup {
   require 'plugins.rosyln',
   require 'plugins.obsidian',
   require 'plugins.noice',
+  require 'plugins.surround',
+  require 'plugins.autotag',
+  require 'plugins.snippets',
+  require 'plugins.highlight-colors',
+  require 'plugins.markdown',
+  require 'plugins.alpha',
+  require 'plugins.smear',
+  -- require 'plugins.local-highlight',
+  require 'plugins.mini',
 }

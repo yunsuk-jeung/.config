@@ -1,7 +1,7 @@
 return {
   -- Main LSP Configuration
   'neovim/nvim-lspconfig',
-  event = 'VeryLazy',
+  -- event = 'VeryLazy',
   dependencies = {
     'williamboman/mason.nvim',
     'williamboman/mason-lspconfig.nvim',
@@ -16,7 +16,7 @@ return {
   },
   config = function()
     -- Define a global variable to control diagnostic display
-    _G.diagnostics_enabled = true
+    _G.diagnostics_enabled = false
 
     -- Define a global function to toggle diagnostics
     _G.toggle_diagnostics = function()
@@ -54,12 +54,6 @@ return {
       -- gopls = {},
       -- pyright = {},
       -- rust_analyzer = {},
-      -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
-      --
-      -- Some languages (like typescript) have entire language plugins that can be useful:
-      --    https://github.com/pmizio/typescript-tools.nvim
-      --
-      -- But for many setups, the LSP (`tsserver`) will work just fine
       ts_ls = {
         root_dir = require('lspconfig.util').root_pattern 'tsconfig.sjon',
         filetypes = { 'typescript', 'typescriptreact', 'tsx', 'javascript' },
@@ -68,29 +62,15 @@ return {
         root_dir = require('lspconfig.util').root_pattern('eslint.config.js', '.git'),
         filetypes = { 'typescript', 'typescriptreact', 'tsx', 'javascript' },
       },
-      ruff = {},
-      pylsp = {
-        settings = {
-          pylsp = {
-            plugins = {
-              pyflakes = { enabled = false },
-              pycodestyle = { enabled = false },
-              autopep8 = { enabled = false },
-              yapf = { enabled = false },
-              mccabe = { enabled = false },
-              pylsp_mypy = { enabled = false },
-              pylsp_black = { enabled = false },
-              pylsp_isort = { enabled = false },
-            },
-          },
-        },
+      emmet_ls = {--[[  filetypes = { 'typescript', 'typescriptreact', 'tsx', 'javascript' } ]]
       },
       html = { filetypes = { 'html', 'twig', 'hbs' } },
+
       cssls = {},
-      tailwindcss = {},
+      tailwindcss = { filetypes = { 'javascript, javascriptreact', 'typescript', 'typescriptreact' } },
+      prismals = {},
       dockerls = {},
       sqlls = {},
-      terraformls = {},
       jsonls = {},
       yamlls = {},
       -- omnisharp = {},
