@@ -35,5 +35,9 @@ return {
       timeout = 2000,
       stages = 'static',
     }
+    vim.keymap.set('n', '<Esc><Esc>', function()
+      require('notify').dismiss()
+      vim.cmd 'nohlsearch'
+    end, { noremap = true, silent = true, desc = 'Dismiss notify popup and clear hlsearch on double Esc' })
   end,
 }

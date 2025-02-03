@@ -22,13 +22,16 @@ return {
       default_format_opts = {
         lsp_format = 'fallback',
       },
-      -- If this is set, Conform will run the formatter on save.
-      -- It will pass the table to conform.format().
-      -- This can also be a function that returns the table.
-      format_on_save = {
-        -- I recommend these options. See :help conform.format for details.
+      -- -- If this is set, Conform will run the formatter on save.
+      -- -- It will pass the table to conform.format().
+      -- -- This can also be a function that returns the table.
+      -- format_on_save = {
+      --   -- I recommend these options. See :help conform.format for details.
+      --   lsp_format = 'fallback',
+      --   timeout_ms = 500,
+      -- },
+      format_after_save = {
         lsp_format = 'fallback',
-        timeout_ms = 500,
       },
     }
   end,

@@ -42,7 +42,7 @@ config.colors = {
 -- 	indexed = { [16] = "#ffa066", [17] = "#ff5d62" },
 -- }
 
-config.window_background_opacity = 1
+config.window_background_opacity = 0.9
 config.macos_window_background_blur = 10
 
 return config

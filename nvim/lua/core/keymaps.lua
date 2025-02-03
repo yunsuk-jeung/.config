@@ -21,15 +21,19 @@ vim.keymap.set('n', 'x', '"_x', opts)
 vim.keymap.set('n', '<C-d>', '<C-d>zz', opts)
 vim.keymap.set('n', '<C-u>', '<C-u>zz', opts)
 
--- Find and center
-vim.keymap.set('n', 'n', 'nzzzv', opts)
-vim.keymap.set('n', 'N', 'Nzzzv', opts)
+-- -- Find and center
+-- vim.keymap.set('n', 'n', 'nzzzv', opts)
+-- vim.keymap.set('n', 'N', 'Nzzzv', opts)
 
--- Resize with arrows
-vim.keymap.set('n', '<Up>', ':resize -2<CR>', opts)
-vim.keymap.set('n', '<Down>', ':resize +2<CR>', opts)
-vim.keymap.set('n', '<Left>', ':vertical resize -2<CR>', opts)
-vim.keymap.set('n', '<Right>', ':vertical resize +2<CR>', opts)
+-- -- Resize with arrows
+-- vim.keymap.set('n', '<Up>', ':resize -2<CR>', opts)
+-- vim.keymap.set('n', '<Down>', ':resize +2<CR>', opts)
+-- vim.keymap.set('n', '<Left>', ':vertical resize -2<CR>', opts)
+-- vim.keymap.set('n', '<Right>', ':vertical resize +2<CR>', opts)
+
+-- Navigate
+vim.keymap.set({ 'n', 'o', 'x' }, 'L', '$', opts)
+vim.keymap.set({ 'n', 'o', 'x' }, 'H', '^', opts)
 
 -- Buffers
 vim.keymap.set('n', '<Tab>', ':bnext<CR>', opts)
@@ -44,10 +48,10 @@ vim.keymap.set('n', '<leader>se', '<C-w>=', opts) -- make split windows equal wi
 -- vim.keymap.set('n', '<leader>xs', ':close<CR>', opts) -- close current split window
 
 -- Tabs
-vim.keymap.set('n', '<leader>to', ':tabnew<CR>', opts) -- open new tab
 vim.keymap.set('n', '<leader>tx', ':tabclose<CR>', opts) -- close current tab
 vim.keymap.set('n', '<leader>tn', ':tabn<CR>', opts) --  go to next tab
 vim.keymap.set('n', '<leader>tp', ':tabp<CR>', opts) --  go to previous tab
+vim.keymap.set('n', '<leader>to', '<C-w>s <C-w>T', opts) -- open new tab
 
 -- Toggle line wrapping
 vim.keymap.set('n', '<leader>lw', '<cmd>set wrap!<CR>', opts)
@@ -66,3 +70,6 @@ vim.keymap.set('n', '<leader>d', vim.diagnostic.open_float, { desc = 'Open float
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
 
 vim.keymap.set('n', '<Esc>', ':set nohlsearch<CR>')
+
+-- vim.keymap.set('n', '<leader>b', 'gcc', opts)
+-- vim.keymap.set('v', '<-_>', 'gc', opts)

@@ -1,0 +1,6 @@
+{
+  "SimpleFunction": {
+    "prefix": "sfc",
+    "body": "const $1 = () => { \nreturn <>$0</>;\n}\nexport default $1"
+  }
+}

@@ -50,15 +50,13 @@ return {
       'nvim-tree/nvim-web-devicons',
     },
     config = function()
-      local presets = require('markview.presets').headings
       require('markview').setup {
         markdown = {
           headings = {
             org_indent = true,
-            org_shift_width = 2,
+            org_shift_width = 1,
           },
         },
-        headings = presets.glow,
       }
     end,
   },
