@@ -15,30 +15,6 @@ return {
     'hrsh7th/cmp-nvim-lsp',
   },
   config = function()
-    -- Define a global variable to control diagnostic display
-    _G.diagnostics_enabled = false
-
-    -- Define a global function to toggle diagnostics
-    _G.toggle_diagnostics = function()
-      _G.diagnostics_enabled = not _G.diagnostics_enabled
-      if _G.diagnostics_enabled then
-        print 'Diagnostics enabled'
-      else
-        print 'Diagnostics disabled'
-      end
-    end
-    -- Create an autocmd for CursorHold, but check the toggle
-    vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
-      group = vim.api.nvim_create_augroup('float_diagnostic', { clear = true }),
-      callback = function()
-        if _G.diagnostics_enabled then
-          vim.diagnostic.open_float(nil, { focus = false })
-        end
-      end,
-    })
-
-    -- Map a key to toggle diagnostics
-    vim.api.nvim_set_keymap('n', '<leader>gw', '<cmd>lua toggle_diagnostics()<CR>', { noremap = true, silent = true })
     require('mason').setup {
       registries = {
         'github:mason-org/mason-registry',
