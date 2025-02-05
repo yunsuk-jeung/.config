@@ -7,7 +7,9 @@ config.font_size = 16
 config.max_fps = 240
 config.enable_tab_bar = false
 config.window_decorations = "RESIZE"
--- config.color_sheme = "tokyonight"
+config.window_padding = {
+	bottom=0,
+}
 config.colors = {
 
 	foreground = "#c8d3f5",
