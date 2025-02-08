@@ -46,7 +46,7 @@ require('lazy').setup {
   require 'plugins.highlight-colors',
   require 'plugins.markdown',
   require 'plugins.alpha',
-  require 'plugins.smear',
+  -- require 'plugins.smear',
   -- require 'plugins.local-highlight',
   require 'plugins.mini',
 }
