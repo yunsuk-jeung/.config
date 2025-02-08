@@ -15,10 +15,13 @@ AEROSPACE_FOCUSED_MONITOR=$(aerospace list-monitors --focused | awk '{print $1}'
 AEROSAPCE_WORKSPACE_FOCUSED_MONITOR=$(aerospace list-workspaces --monitor focused --empty no)
 AEROSPACE_EMPTY_WORKESPACE=$(aerospace list-workspaces --monitor focused --empty)
 
-reload_workspace_icon() {
-  # echo reload_workspace_icon "$@" >> ~/aaaa
-  apps=$(aerospace list-windows --workspace "$@" | awk -F'|' '{gsub(/^ *| *$/, "", $2); print $2}')
+ echo AEROSPACE_FOCUSED_MONITO  $AEROSPACE_FOCUSED_MONITOR "$@" >> ~/aaaa
+ sketchybar --set $NAME display=$AEROSPACE_FOCUSED_MONITOR
 
+reload_workspace_icon() {
+  pps=$(aerospace list-windows --workspace "$@" | awk -F'|' '{gsub(/^ *| *$/, "", $2); print $2}')
+
+  echo reload_workspace_icon "$pps" >> ~/aaaa
   icon_strip=" "
   if [ "${apps}" != "" ]; then
     while read -r app
@@ -33,7 +36,6 @@ reload_workspace_icon() {
 }
 
 if [ "$SENDER" = "aerospace_workspace_change" ]; then
-
   # if [ $i = "$FOCUSED_WORKSPACE" ]; then
   #   sketchybar --set space.$FOCUSED_WORKSPACE background.drawing=on
   # else
@@ -57,7 +59,8 @@ if [ "$SENDER" = "aerospace_workspace_change" ]; then
 
   reload_workspace_icon "$AEROSPACE_PREV_WORKSPACE"
   reload_workspace_icon "$AEROSPACE_FOCUSED_WORKSPACE"
-
+  echo reload_workspace_icon "$AEROSPACE_PREV_WORKSPACE" >> ~/aaaa
+  echo  reload_workspace_icon "$AEROSPACE_FOCUSED_WORKSPACE" >> ~/aaaa
   #sketchybar --animate sin 10 --set space.$space label="$icon_strip"
 
   # current workspace space border color
