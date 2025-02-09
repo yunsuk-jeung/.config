@@ -24,6 +24,7 @@ for _, monitor in ipairs(monitors) do
 		-- for k, workspace in ipairs(workspaces) do
 		local i = k + workspace_offset
 		local selected = workspace == current_workspace
+
 		local space = sbar.add("item", "item." .. i, {
 			display = monitor,
 			icon = {
@@ -31,6 +32,7 @@ for _, monitor in ipairs(monitors) do
 					family = settings.font.numbers,
 				},
 				string = i,
+				-- padding_left = settings.items.padding.left,
 				padding_left = settings.items.padding.left,
 				padding_right = settings.items.padding.left / 2,
 				color = settings.items.default_color(i),
