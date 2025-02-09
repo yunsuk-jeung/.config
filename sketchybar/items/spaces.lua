@@ -51,9 +51,9 @@ for _, monitor in ipairs(monitors) do
 			padding_left = 1,
 			background = {
 				color = settings.items.colors.background,
-				border_width = 1,
-				height = settings.items.height,
 				border_color = selected and settings.items.highlight_color(i) or settings.items.default_color(i),
+				border_width = selected and 2 or 0,
+				height = settings.items.height + (selected and 4 or 0),
 			},
 			popup = {
 				background = {
@@ -91,7 +91,8 @@ for _, monitor in ipairs(monitors) do
 		-- Padding space between each item
 		sbar.add("item", "item." .. i .. "padding", {
 			script = "",
-			width = settings.items.gap,
+			-- width = settings.items.gap,
+			width = 0,
 		})
 
 		-- Item popup
@@ -117,8 +118,12 @@ for _, monitor in ipairs(monitors) do
 				label = {
 					highlight = selected,
 				},
+
 				background = {
+					-- border_color = selected and settings.items.highlight_color(i) or settings.items.default_color(i),
 					border_color = selected and settings.items.highlight_color(i) or settings.items.default_color(i),
+					border_width = selected and 2 or 0,
+					height = settings.items.height + (selected and 4 or 0),
 				},
 			})
 		end)

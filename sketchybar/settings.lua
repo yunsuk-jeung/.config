@@ -7,7 +7,8 @@ return {
 	modes = {
 		main = {
 			icon = icons.apple,
-			color = colors.rainbow[1],
+			-- color = colors.rainbow[1],
+			color = colors.white,
 		},
 		service = {
 			icon = icons.nuke,
@@ -36,7 +37,7 @@ return {
 			return colors.rainbow[workspace + 1]
 		end,
 		highlight_color = function(workspace)
-			return colors.yellow
+			return colors.rainbow[workspace + 1]
 		end,
 		colors = {
 			background = colors.bg1,

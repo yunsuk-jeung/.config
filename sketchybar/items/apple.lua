@@ -59,5 +59,6 @@ end)
 
 -- Padding to the right of the main button
 sbar.add("item", {
-	width = 7,
+	position = "left",
+	width = 5,
 })
