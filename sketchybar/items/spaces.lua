@@ -92,7 +92,7 @@ for _, monitor in ipairs(monitors) do
 		sbar.add("item", "item." .. i .. "padding", {
 			script = "",
 			-- width = settings.items.gap,
-			width = 0,
+			width = 1,
 		})
 
 		-- Item popup
