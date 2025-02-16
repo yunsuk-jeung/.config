@@ -49,4 +49,5 @@ require('lazy').setup {
   -- require 'plugins.smear',
   -- require 'plugins.local-highlight',
   require 'plugins.mini',
+  require 'plugins.scroll',
 }

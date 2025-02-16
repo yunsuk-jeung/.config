@@ -27,12 +27,12 @@ return {
       },
     }
     require('mini.cursorword').setup()
-    require('mini.comment').setup {
-      mappings = {
-        comment_line = '<C-_>',
-        comment_visual = '<C-_>',
-      },
-    }
+    -- require('mini.comment').setup {
+    --   mappings = {
+    --     comment_line = '<C-_>',
+    --     comment_visual = '<C-_>',
+    --   },
+    -- }
     require('mini.statusline').setup {
       use_icons = vim.g.have_nerd_font,
       content = {

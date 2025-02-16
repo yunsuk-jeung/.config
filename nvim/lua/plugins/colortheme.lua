@@ -70,7 +70,11 @@ return {
           -- miscs = {}, -- Uncomment to turn off hard-coded styles
         },
         color_overrides = {},
-        custom_highlights = {},
+        custom_highlights = function(colors)
+          return {
+            MiniCursorword = { bg = colors.surface1, underline = false },
+          }
+        end,
         default_integrations = true,
         integrations = {
           cmp = true,
