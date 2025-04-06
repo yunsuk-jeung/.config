@@ -34,11 +34,12 @@ return {
   {
     'catppuccin/nvim',
     name = 'catppuccin',
-    -- priority = 1000,
+    lazy = false,
+    priority = 1000,
 
     config = function()
       require('catppuccin').setup {
-        flavour = 'auto', -- latte, frappe, macchiato, mocha
+        flavour = 'macchiato', -- latte, frappe, macchiato, mocha
         background = { -- :h background
           light = 'latte',
           dark = 'mocha',
@@ -70,11 +71,14 @@ return {
           -- miscs = {}, -- Uncomment to turn off hard-coded styles
         },
         color_overrides = {},
+
         custom_highlights = function(colors)
           return {
             MiniCursorword = { bg = colors.surface1, underline = false },
+            LineNr = { fg = '#a1a1a4' },
           }
         end,
+
         default_integrations = true,
         integrations = {
           cmp = true,

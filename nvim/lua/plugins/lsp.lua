@@ -30,20 +30,21 @@ return {
       -- gopls = {},
       -- pyright = {},
       -- rust_analyzer = {},
-      ts_ls = {
-        root_dir = require('lspconfig.util').root_pattern 'tsconfig.sjon',
-        filetypes = { 'typescript', 'typescriptreact', 'tsx', 'javascript' },
-      }, -- tsserver is deprecated
-      eslint = {
-        root_dir = require('lspconfig.util').root_pattern('eslint.config.js', '.git'),
-        filetypes = { 'typescript', 'typescriptreact', 'tsx', 'javascript' },
-      },
-      emmet_ls = {--[[  filetypes = { 'typescript', 'typescriptreact', 'tsx', 'javascript' } ]]
-      },
+      -- vtsls = {},
+      ts_ls = {},
+      -- ts_ls = {
+      --   root_dir = require('lspconfig.util').root_pattern 'tsconfig.sjon',
+      --   filetypes = { 'typescript', 'typescriptreact', 'tsx', 'javascript' },
+      -- }, -- tsserver is deprecated
+      -- vtsls = {},
+      emmet_ls = {},
+      -- eslint_d = {
+      --   root_dir = require('lspconfig.util').root_pattern('eslint.config.js', '.git'),
+      --   filetypes = { 'typescript', 'typescriptreact', 'tsx', 'javascript', 'javascriptreact' },
+      -- },
       html = { filetypes = { 'html', 'twig', 'hbs' } },
-
       cssls = {},
-      tailwindcss = { filetypes = { 'javascript, javascriptreact', 'typescript', 'typescriptreact' } },
+      tailwindcss = { filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' } },
       prismals = {},
       dockerls = {},
       sqlls = {},
@@ -69,6 +70,54 @@ return {
               enable = false,
             },
           },
+        },
+      },
+      -- gopls = {
+      --   settings = {
+      --     gopls = {
+      --       staticcheck = true,
+      --       analyses = {
+      --         unusedParams = true,
+      --       },
+      --     },
+      --   },
+      -- },
+      gopls = {
+        settings = {
+          gopls = {
+            staticcheck = true,
+            analyses = {
+              unusedparams = true, -- ???? ??
+              unusedwrite = true,
+              nilness = true,
+              shadow = true,
+              fieldalignment = false, -- ??? ?? ??
+            },
+            codelenses = {
+              gc_details = true,
+              generate = true,
+              regenerate_cgo = true,
+              run_govulncheck = true,
+              test = true,
+              tidy = true,
+              upgrade_dependency = true,
+              vendor = true,
+            },
+            hints = {
+              assignVariableTypes = true,
+              compositeLiteralFields = true,
+              constantValues = true,
+              functionTypeParameters = true,
+              parameterNames = true,
+              rangeVariableTypes = true,
+            },
+            usePlaceholders = true,
+            completeUnimported = true,
+            semanticTokens = true,
+          },
+        },
+        flags = {
+          debounce_text_changes = 150,
         },
       },
     }

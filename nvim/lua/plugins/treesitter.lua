@@ -1,11 +1,11 @@
 return { -- Highlight, edit, and navigate code
   {
-    'JoosepAlviste/nvim-ts-context-commentstring',
-  },
-  {
     'nvim-treesitter/nvim-treesitter',
-
+    lazy = false,
     build = ':TSUpdate',
+    dependencies = {
+      'JoosepAlviste/nvim-ts-context-commentstring',
+    },
     main = 'nvim-treesitter.configs', -- Sets main module to use for opts
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
     opts = {
@@ -49,12 +49,8 @@ return { -- Highlight, edit, and navigate code
         --  the list of additional_vim_regex_highlighting and disabled languages for indent.
         additional_vim_regex_highlighting = { 'ruby' },
       },
-      -- indent = { enable = true, disable = { 'ruby', 'html', 'css', 'cpp' } },
-      indent = { enable = false },
-      context_commentstring = {
-        enable = true,
-        enable_autocmd = false,
-      },
+      indent = { enable = true, disable = { 'ruby', 'html', 'css', 'cpp', 'go' } },
+      -- indent = { enable = false },
     },
     -- There are additional nvim-treesitter modules that you can use to interact
     -- with nvim-treesitter. You should go explore a few and see what interests you:
@@ -62,5 +58,14 @@ return { -- Highlight, edit, and navigate code
     --    - Incremental selection: Included, see `:help nvim-treesitter-incremental-selection-mod`
     --    - Show your current context: https://github.com/nvim-treesitter/nvim-treesitter-context
     --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
+  },
+  {
+    'JoosepAlviste/nvim-ts-context-commentstring',
+    config = function()
+      vim.g.skip_ts_context_commentstring_module = true
+      require('ts_context_commentstring').setup {
+        enable_autocmd = false,
+      }
+    end,
   },
 }

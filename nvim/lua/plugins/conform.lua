@@ -14,6 +14,7 @@ return {
         javascriptreact = { 'prettier' },
         typescript = { 'prettier' },
         typescriptreact = { 'prettier' },
+        yaml = { 'prettier' },
         cs = { 'csharpier' },
         markdown = { 'markdown-toc' },
         -- html = { 'prettier' },

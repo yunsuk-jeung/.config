@@ -8,9 +8,10 @@ vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 -- For conciseness
 local opts = { noremap = true, silent = true }
 
--- save file without auto-formatting
-vim.keymap.set('n', '<C-s>', '<cmd> w <CR>', opts)
-vim.keymap.set('i', '<C-s>', '<cmd> w<CR><Esc>', opts)
+vim.keymap.set('n', '<M-s>', '<cmd> w <CR>', opts)
+vim.keymap.set('i', '<M-s>', '<cmd> w<CR><Esc>', opts)
+vim.keymap.set('n', '<D-s>', '<cmd> w <CR>', opts)
+vim.keymap.set('i', '<D-s>', '<cmd> w<CR><Esc>', opts)
 -- quit file
 vim.keymap.set('n', '<C-q>', '<cmd> q <CR>', opts)
 
@@ -73,3 +74,4 @@ vim.keymap.set('n', '<Esc>', ':set nohlsearch<CR>')
 vim.keymap.set('v', 'y', 'y`>', opts)
 -- vim.keymap.set('n', '<leader>b', 'gcc', opts)
 -- vim.keymap.set('v', '<-_>', 'gc', opts)
+vim.keymap.set('n', '<leader>cc', '<cmd>BufOnlyVisible<CR>', { noremap = true, silent = true })

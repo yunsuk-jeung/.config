@@ -1,7 +1,7 @@
 -- Core configuration
 require 'core.options'
 require 'core.keymaps'
-
+require 'core.commands'
 -- Lazy.nvim setup
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
@@ -34,6 +34,7 @@ require('lazy').setup {
   require 'plugins.comment',
   require 'plugins.misc',
   require 'plugins.lazygit',
+  require 'plugins.lazydocker',
   require 'plugins.auto-session',
   require 'plugins.ufo',
   require 'plugins.cmake-tools',
@@ -48,6 +49,9 @@ require('lazy').setup {
   require 'plugins.alpha',
   -- require 'plugins.smear',
   -- require 'plugins.local-highlight',
-  require 'plugins.mini',
   require 'plugins.scroll',
+  require 'plugins.mini',
+  require 'plugins.image',
+  require 'plugins.image-upload',
+  require 'plugins.codes',
 }

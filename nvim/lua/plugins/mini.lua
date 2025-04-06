@@ -6,26 +6,26 @@ return {
     require('mini.jump').setup()
     -- require('mini.jump2d').setup()
 
-    require('mini.move').setup {
-      mappings = {
-        down = '<M-s>', -- Shift + j
-        up = '<M-d>', -- Shift + k
-        line_down = '<M-s>',
-        line_up = '<M-d>',
-      },
-    }
+    -- require('mini.move').setup {
+    --   mappings = {
+    --     down = '<M-s>', -- Shift + j
+    --     up = '<M-d>', -- Shift + k
+    --     line_down = '<M-s>',
+    --     line_up = '<M-d>',
+    --   },
+    -- }
     -- require('mini.surround').setup()
-    local gen_loader = require('mini.snippets').gen_loader
-    require('mini.snippets').setup {
-      snippets = {
-        -- Load custom file with global snippets first (adjust for Windows)
-        gen_loader.from_file '~/.config/nvim/snippets/global.json',
-
-        -- Load snippets based on current language by reading files from
-        -- "snippets/" subdirectories from 'runtimepath' directories.
-        gen_loader.from_lang(),
-      },
-    }
+    -- local gen_loader = require('mini.snippets').gen_loader
+    -- require('mini.snippets').setup {
+    --   snippets = {
+    --     -- Load custom file with global snippets first (adjust for Windows)
+    --     gen_loader.from_file '~/.config/nvim/snippets/global.json',
+    --
+    --     -- Load snippets based on current language by reading files from
+    --     -- "snippets/" subdirectories from 'runtimepath' directories.
+    --     gen_loader.from_lang(),
+    --   },
+    -- }
     require('mini.cursorword').setup()
     -- require('mini.comment').setup {
     --   mappings = {
