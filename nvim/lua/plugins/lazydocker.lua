@@ -5,5 +5,5 @@ return {
   dependencies = {
     'MunifTanjim/nui.nvim',
   },
-  vim.keymap.set('n', '<leader>ld', '<cmd>LazyDocker<CR>', { desc = 'Toggle LazyDocker', noremap = true, silent = true }),
+  vim.keymap.set('n', '<leader>ld', '<cmd>LazyDocker<CR>', { desc = 'LazyDocker', noremap = true, silent = true }),
 }

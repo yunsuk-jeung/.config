@@ -54,4 +54,6 @@ require('lazy').setup {
   require 'plugins.image',
   require 'plugins.image-upload',
   require 'plugins.codes',
+  require 'plugins.toggleterm',
+  require 'plugins.dbee',
 }

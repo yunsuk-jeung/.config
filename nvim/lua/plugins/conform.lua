@@ -16,9 +16,10 @@ return {
         typescriptreact = { 'prettier' },
         yaml = { 'prettier' },
         cs = { 'csharpier' },
-        markdown = { 'markdown-toc' },
+        -- markdown = { 'prettier' },
         -- html = { 'prettier' },
         prisma = { 'prettier' },
+        -- sql = { 'sqlfmt' },
       },
       default_format_opts = {
         lsp_format = 'fallback',
