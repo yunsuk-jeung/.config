@@ -1,9 +1,6 @@
 return {
   'folke/noice.nvim',
   event = 'VeryLazy',
-  opts = {
-    -- add any options here
-  },
   dependencies = {
     -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
     'MunifTanjim/nui.nvim',
@@ -13,6 +10,7 @@ return {
     'rcarriga/nvim-notify',
   },
   config = function()
+    vim.notify = require('noice').notify
     require('noice').setup {
       lsp = {
         -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
@@ -22,19 +20,39 @@ return {
           ['cmp.entry.get_documentation'] = true, -- requires hrsh7th/nvim-cmp
         },
       },
-      -- you can enable a preset for easier configuration
-      presets = {
-        bottom_search = true, -- use a classic bottom cmdline for search
-        -- command_palette = true, -- position the cmdline and popupmenu together
-        long_message_to_split = true, -- long messages will be sent to a split
-        inc_rename = false, -- enables an input dialog for inc-rename.nvim
-        lsp_doc_border = false, -- add a border to hover docs and signature help
+
+      views = {
+        popup = {
+          position = {
+            row = '100%',
+            col = '100%',
+          },
+          border = {
+            style = 'rounded',
+          },
+        },
+        mini = {
+          position = {
+            row = -1, -- 화면 아래
+            col = '100%', -- 오른쪽 끝
+          },
+        },
+      },
+
+      routes = {
+        {
+          filter = {
+            event = 'msg_show',
+            kind = '',
+          },
+          view = 'mini', -- 또는 "popup"
+        },
       },
     }
-    require('notify').setup {
-      timeout = 2000,
-      stages = 'static',
-    }
+    -- require('notify').setup {
+    --   timeout = 2000,
+    --   stages = 'static',
+    -- }
     vim.keymap.set('n', '<Esc><Esc>', function()
       require('notify').dismiss()
       vim.cmd 'nohlsearch'
