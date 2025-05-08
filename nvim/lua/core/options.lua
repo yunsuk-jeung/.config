@@ -40,7 +40,6 @@ vim.o.completeopt = 'menuone,noselect' -- Set completeopt to have a better compl
 vim.opt.shortmess:append 'c' -- Don't give |ins-completion-menu| messages (default: does not include 'c')
 vim.opt.iskeyword:append '-' -- Hyphenated words recognized by searches (default: does not include '-')
 vim.opt.runtimepath:remove '/usr/share/vim/vimfiles' -- Separate Vim plugins from Neovim in case Vim still in use (default: includes this path if Vim is installed)
-vim.opt.conceallevel = 0
 
 vim.api.nvim_create_autocmd('BufWinEnter', {
   command = 'set formatoptions-=cro',

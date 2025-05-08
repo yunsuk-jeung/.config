@@ -9,7 +9,13 @@ return {
     }
     vim.api.nvim_set_hl(0, 'RainbowBlue', { fg = '#59c5f0' })
     vim.api.nvim_set_hl(0, 'IndentChar', { fg = '#6d6f70' })
-
+    vim.api.nvim_create_autocmd('ColorScheme', {
+      pattern = '*',
+      callback = function()
+        vim.api.nvim_set_hl(0, 'RainbowBlue', { fg = '#59c5f0' })
+        vim.api.nvim_set_hl(0, 'IndentChar', { fg = '#6d6f70' })
+      end,
+    })
     require('ibl').setup {
       exclude = { filetypes = { 'markdown' } },
       indent = {

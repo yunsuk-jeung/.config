@@ -28,7 +28,7 @@ return {
       }
 
       -- Load the colorscheme
-      -- vim.cmd.colorscheme 'kanagawa'
+      vim.cmd.colorscheme 'kanagawa'
     end,
   },
   {
@@ -40,11 +40,11 @@ return {
     config = function()
       require('catppuccin').setup {
         flavour = 'macchiato', -- latte, frappe, macchiato, mocha
-        background = { -- :h background
-          light = 'latte',
-          dark = 'mocha',
-        },
-        transparent_background = true, -- disables setting the background color.
+        -- background = { -- :h background
+        --   light = 'latte',
+        --   dark = 'mocha',
+        -- },
+        transparent_background = false, -- disables setting the background color.
         show_end_of_buffer = false, -- shows the '~' characters after the end of buffers
         term_colors = false, -- sets terminal colors (e.g. `g:terminal_color_0`)
         dim_inactive = {
@@ -94,7 +94,7 @@ return {
         },
       }
       -- Load the colorscheme
-      vim.cmd.colorscheme 'catppuccin'
+      -- vim.cmd.colorscheme 'catppuccin'
     end,
   },
   {
@@ -108,5 +108,44 @@ return {
       }
       -- vim.cmd.colorscheme 'tokyonight'
     end,
+  },
+  {
+    'Mofiqul/vscode.nvim',
+    lazy = false,
+    priority = 1000,
+    opts = {},
+    config = function()
+      local c = require('vscode.colors').get_colors()
+      require('vscode').setup {
+        -- Alternatively set style in setup style = 'light'
+        -- Enable transparent background
+        transparent = false,
+
+        -- Enable italic comment
+        italic_comments = true,
+
+        -- Underline `@markup.link.*` variants
+        underline_links = true,
+
+        -- Disable nvim-tree background color
+        disable_nvimtree_bg = true,
+
+        -- Apply theme colors to terminal
+        terminal_colors = true,
+
+        -- Override colors (see ./lua/vscode/colors.lua)
+        color_overrides = {
+          vscLineNumber = '#FFFFFF',
+        },
+
+        -- Override highlight groups (see ./lua/vscode/theme.lua)
+        group_overrides = {
+          -- this supports the same val table as vim.api.nvim_set_hl
+          -- use colors from this colorscheme by requiring vscode.colors!
+          Cursor = { fg = c.vscDarkBlue, bg = c.vscLightGreen, bold = true },
+        },
+      }
+    end,
+    --    vim.cmd.colorscheme 'vscode',
   },
 }

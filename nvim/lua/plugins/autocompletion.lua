@@ -49,13 +49,16 @@ return { -- Autocompletion
           luasnip.lsp_expand(args.body)
         end,
       },
+      preselect = cmp.PreselectMode.None,
+
       completion = {
-        completeopt = 'menu,menuone,noinsert', -- Ensure 'menuone' for automatic popups
+        completeopt = 'menu,menuone,noselect,noinsert', -- Ensure 'menuone' for automatic popups
         autocomplete = {
           cmp.TriggerEvent.TextChanged, -- Trigger on text changes
           cmp.TriggerEvent.InsertEnter, -- Trigger on entering insert mode
         },
       },
+
       -- For an understanding of why these mappings were
       -- chosen, you will need to read `:help ins-completion`
       --
@@ -66,22 +69,24 @@ return { -- Autocompletion
 
         ['<C-b>'] = cmp.mapping.scroll_docs(-4),
         ['<C-f>'] = cmp.mapping.scroll_docs(4),
-        ['<C-y>'] = cmp.mapping.confirm { select = true },
+        -- ['<C-y>'] = cmp.mapping.confirm { select = false },
 
-        ['<CR>'] = cmp.mapping(function(fallback)
-          if cmp.visible() then
-            if luasnip.expandable() then
-              luasnip.expand()
-            else
-              cmp.confirm {
-                select = true,
-              }
-            end
-          else
-            fallback()
-          end
-        end),
+        ['<CR>'] = cmp.mapping.confirm { select = false },
 
+        -- ['<CR>'] = cmp.mapping(function(fallback)
+        --   if cmp.visible() then
+        --     if luasnip.expandable() then
+        --       luasnip.expand()
+        --     else
+        --       cmp.confirm {
+        --         select = false,
+        --       }
+        --     end
+        --   else
+        --     fallback()
+        --   end
+        -- end),
+        --
         ['<C-Space>'] = cmp.mapping.complete {},
         ['<C-l>'] = cmp.mapping(function()
           if luasnip.expand_or_locally_jumpable() then

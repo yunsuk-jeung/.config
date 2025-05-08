@@ -11,6 +11,14 @@ return {
   --   "BufReadPre path/to/my-vault/*.md",
   --   "BufNewFile path/to/my-vault/*.md",
   -- },
+  init = function()
+    vim.api.nvim_create_autocmd('FileType', {
+      pattern = 'markdown',
+      callback = function()
+        vim.opt_local.conceallevel = 2
+      end,
+    })
+  end,
   dependencies = {
     -- Required.
     'nvim-lua/plenary.nvim',

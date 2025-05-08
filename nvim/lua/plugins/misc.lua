@@ -12,9 +12,9 @@ return {
       { '<c-l>', '<cmd>TmuxNavigateRight<cr>' },
     },
   },
-  {
-    'tpope/vim-sleuth',
-  },
+  -- {
+  --   'tpope/vim-sleuth',
+  -- },
   {
     'tpope/vim-fugitive',
   },
