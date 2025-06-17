@@ -10,7 +10,7 @@ return {
         keywordStyle = { italic = true },
         statementStyle = { bold = true },
         typeStyle = {},
-        transparent = true, -- Do not set background color
+        transparent = false, -- Do not set background color
         dimInactive = false, -- Dim inactive window `:h hl-NormalNC`
         terminalColors = true, -- Define vim.g.terminal_color_{0,17}
         colors = { -- Add/modify theme and palette colors
@@ -39,7 +39,7 @@ return {
 
     config = function()
       require('catppuccin').setup {
-        flavour = 'macchiato', -- latte, frappe, macchiato, mocha
+        flavour = 'mocha', -- latte, frappe, macchiato, mocha
         -- background = { -- :h background
         --   light = 'latte',
         --   dark = 'mocha',

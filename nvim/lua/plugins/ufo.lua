@@ -11,8 +11,13 @@ return {
       vim.keymap.set('n', 'zR', require('ufo').openAllFolds)
       vim.keymap.set('n', 'zM', require('ufo').closeAllFolds)
 
+      -- for i = 0, 9 do
+      --   vim.keymap.set('n', 'zf' .. i, function()
+      --     require('ufo').closeFoldsWith(i)
+      --   end, { noremap = true, silent = true })
+      -- end
       for i = 0, 9 do
-        vim.keymap.set('n', 'zf' .. i, function()
+        vim.keymap.set('n', 'z' .. i, function()
           require('ufo').closeFoldsWith(i)
         end, { noremap = true, silent = true })
       end

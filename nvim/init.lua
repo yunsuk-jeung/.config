@@ -14,7 +14,10 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 if vim.g.vscode then
-  return {}
+  require 'core.vskeymaps'
+  require('lazy').setup {
+    require 'plugins.surround',
+  }
 end
 
 -- Plugin etup using lazy.nvim

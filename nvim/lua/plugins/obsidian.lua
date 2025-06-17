@@ -43,7 +43,7 @@ return {
       -- Optional, default tags to add to each new daily note created.
       default_tags = { 'daily-notes' },
       -- Optional, if you want to automatically insert a template from your template directory like 'daily.md'
-      template = nil,
+      template = 'todo.md',
     },
 
     -- Optional, completion of wiki links, local markdown links, and tags using nvim-cmp.

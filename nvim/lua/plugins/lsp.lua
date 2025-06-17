@@ -1,79 +1,45 @@
 return {
   {
-    -- Main LSP Configuration
     'neovim/nvim-lspconfig',
-    -- event = 'VeryLazy',
     dependencies = {
       'williamboman/mason.nvim',
       'williamboman/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
-
-      -- -- Useful status updates for LSP.
-      -- -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      -- { 'j-hui/fidget.nvim', opts = {} },
-
-      -- Allows extra capabilities provided by nvim-cmp
       'hrsh7th/cmp-nvim-lsp',
     },
     config = function()
+      -- mason: LSP 서버 설치만 담당
       require('mason').setup {
         registries = {
           'github:mason-org/mason-registry',
           'github:crashdummyy/mason-registry',
         },
         build = function()
-          vim.cmd 'MasonInstall roslyn' -- Mason을 통해 roslyn 설치
+          vim.cmd 'MasonInstall roslyn'
           vim.cmd 'MasonInstall rzls'
         end,
       }
+
+      -- mason-lspconfig: 설치할 서버 목록 관리
       local servers = {
-        -- clangd = {},
-        -- gopls = {},
-        -- pyright = {},
-        -- rust_analyzer = {},
-        -- vtsls = {},
+        basedpyright = {},
         ts_ls = {},
-        -- ts_ls = {
-        --   root_dir = require('lspconfig.util').root_pattern 'tsconfig.sjon',
-        --   filetypes = { 'typescript', 'typescriptreact', 'tsx', 'javascript' },
-        -- }, -- tsserver is deprecated
-        -- vtsls = {},
         emmet_ls = {},
-        -- eslint_d = {
-        --   root_dir = require('lspconfig.util').root_pattern('eslint.config.js', '.git'),
-        --   filetypes = { 'typescript', 'typescriptreact', 'tsx', 'javascript', 'javascriptreact' },
-        -- },
         html = { filetypes = { 'html', 'twig', 'hbs' } },
         cssls = {},
         tailwindcss = { filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' } },
         prismals = {},
         dockerls = {},
-        -- sqlls = {
-        --   -- root_dir = function()
-        --   --   return vim.loop.cwd()
-        --   -- end,
-        -- },
         jsonls = {},
         yamlls = {},
-        -- omnisharp = {},
         lua_ls = {
           settings = {
             Lua = {
-              completion = {
-                callSnippet = 'Replace',
-              },
+              completion = { callSnippet = 'Replace' },
               runtime = { version = 'LuaJIT' },
-              workspace = {
-                checkThirdParty = false,
-                library = {
-                  '${3rd}/luv/library',
-                  unpack(vim.api.nvim_get_runtime_file('', true)),
-                },
-              },
+              workspace = { checkThirdParty = false, library = vim.api.nvim_get_runtime_file('', true) },
               diagnostics = { disable = { 'missing-fields' } },
-              format = {
-                enable = false,
-              },
+              format = { enable = false },
             },
           },
         },
@@ -82,11 +48,11 @@ return {
             gopls = {
               staticcheck = true,
               analyses = {
-                unusedparams = true, -- ???? ??
+                unusedparams = true,
                 unusedwrite = true,
                 nilness = true,
                 shadow = true,
-                fieldalignment = false, -- ??? ?? ??
+                fieldalignment = false,
               },
               codelenses = {
                 gc_details = true,
@@ -111,55 +77,53 @@ return {
               semanticTokens = true,
             },
           },
-          flags = {
-            debounce_text_changes = 150,
-          },
+          flags = { debounce_text_changes = 150 },
         },
       }
 
-      local ensure_installed = vim.tbl_keys(servers or {})
-      require('mason-tool-installer').setup { ensure_installed = ensure_installed }
+      -- -- mason-lspconfig: 설치할 서버 목록만 지정
+      -- require('mason-lspconfig').setup {
+      --   ensure_installed = vim.tbl_keys(servers or {}),
+      -- }
+      --
+      -- -- mason-tool-installer: 추가 툴 설치 (필요시)
+      -- require('mason-tool-installer').setup {
+      --   ensure_installed = vim.tbl_keys(servers or {}),
+      -- }
 
-      local mason_lspconfig = require 'mason-lspconfig'
+      -- nvim-lspconfig: 실제 서버 설정(on_attach, capabilities 등 직접 처리)
+      local lspconfig = require 'lspconfig'
+      local capabilities = require('cmp_nvim_lsp').default_capabilities()
+      local on_attach = require 'plugins.lspattach'
 
-      mason_lspconfig.setup {
-        handlers = {
-          function(server_name)
-            local server = servers[server_name] or {}
-            -- This handles overriding only values explicitly passed
-            -- by the server configuration above. Useful when disabling
-            -- certain features of an LSP (for example, turning off formatting for tsserver)
-            server.capabilities = require 'plugins.lspcapabilities'
-            server.on_attach = require 'plugins.lspattach'
-            require('lspconfig')[server_name].setup(server)
-          end,
-        },
-      }
+      for server_name, server_opts in pairs(servers) do
+        server_opts = vim.tbl_deep_extend('force', {
+          capabilities = capabilities,
+          on_attach = on_attach,
+        }, server_opts or {})
+        lspconfig[server_name].setup(server_opts)
+      end
     end,
   },
-  {
-    'jay-babu/mason-null-ls.nvim',
-    dependencies = {
-      'nvimtools/none-ls.nvim',
-      'williamboman/mason.nvim',
-    },
-    config = function()
-      require('mason-null-ls').setup {
-        ensure_installed = { 'sqlfluff' },
-        automatic_installation = true,
-      }
-
-      local null_ls = require 'null-ls'
-      null_ls.setup {
-        sources = {
-          null_ls.builtins.diagnostics.sqlfluff,
-          -- null_ls.builtins.diagnostics.sqlfluff.with {
-          --   extra_args = { '--dialect', 'postgres' }, -- ??? SQL dialect? ??? ?
-          -- },
-          null_ls.builtins.formatting.sqlfluff,
-        },
-        on_attach = require 'plugins.lspattach',
-      }
-    end,
-  },
+  -- {
+  --   'jay-babu/mason-null-ls.nvim',
+  --   dependencies = {
+  'nvimtools/none-ls.nvim',
+  --   'williamboman/mason.nvim',
+  -- },
+  config = function()
+    -- require('mason-null-ls').setup {
+    --   ensure_installed = { 'sqlfluff' },
+    --   automatic_installation = true,
+    -- }
+    local null_ls = require 'null-ls'
+    null_ls.setup {
+      sources = {
+        null_ls.builtins.diagnostics.sqlfluff,
+        null_ls.builtins.formatting.sqlfluff,
+      },
+      on_attach = require 'plugins.lspattach',
+    }
+  end,
+  -- },
 }

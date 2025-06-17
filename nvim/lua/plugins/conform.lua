@@ -5,11 +5,8 @@ return {
     require('conform').setup {
       formatters_by_ft = {
         lua = { 'stylua' },
-        -- Conform will run multiple formatters sequentially
-        python = { 'isort', 'black' },
-        -- You can customize some of the format options for the filetype (:help conform.format)
+        python = { 'black' },
         rust = { 'rustfmt', lsp_format = 'fallback' },
-        -- Conform will run the first available formatter
         javascript = { 'prettier' },
         javascriptreact = { 'prettier' },
         typescript = { 'prettier' },
@@ -19,7 +16,11 @@ return {
         -- markdown = { 'prettier' },
         -- html = { 'prettier' },
         prisma = { 'prettier' },
-        -- sql = { 'sqlfmt' },
+      },
+      formatters = {
+        black = {
+          prepend_args = { '--skip-string-normalization' },
+        },
       },
       default_format_opts = {
         lsp_format = 'fallback',

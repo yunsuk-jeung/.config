@@ -25,8 +25,8 @@ return {
       scope = {
         --   -- enabled = false,
         char = '▎',
-        show_start = true,
-        show_end = true,
+        show_start = false,
+        -- show_end = true,
         injected_languages = true,
         highlight = highlight,
         include = {
