@@ -1,3 +1,20 @@
+-- ~/.config/nvim/init.lua
+vim.o.undofile = true
+vim.o.undodir = vim.fn.stdpath 'data' .. '/undo'
+vim.o.swapfile = true
+vim.o.directory = vim.fn.stdpath 'data' .. '/swap'
+
+local undodir = vim.fn.stdpath 'data' .. '/undo'
+
+local function clean_old_undo_files()
+  local cmd = string.format('find %s -type f -atime +30 -delete', undodir)
+  os.execute(cmd)
+end
+
+vim.api.nvim_create_autocmd('VimEnter', {
+  callback = clean_old_undo_files,
+})
+
 vim.wo.number = true -- Make line numbers default (default: false)
 vim.o.relativenumber = true -- Set relative numbered lines (default: false)
 vim.o.clipboard = 'unnamedplus' -- Sync clipboard between OS and Neovim. (default: '')
