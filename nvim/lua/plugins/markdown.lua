@@ -1,11 +1,12 @@
 return {
   {
     'OXY2DEV/markview.nvim',
-    lazy = false, -- Recommended
-    dependencies = {
-      'nvim-treesitter/nvim-treesitter',
-      'nvim-tree/nvim-web-devicons',
-    },
+    -- lazy = false, -- Recommended
+    -- dependencies = {
+    --   'nvim-treesitter/nvim-treesitter',
+    --   'nvim-tree/nvim-web-devicons',
+    -- },
+    priority = 49,
     config = function()
       vim.defer_fn(function()
         require('markview').setup {

@@ -4,6 +4,8 @@ vim.o.undodir = vim.fn.stdpath 'data' .. '/undo'
 vim.o.swapfile = true
 vim.o.directory = vim.fn.stdpath 'data' .. '/swap'
 
+vim.opt.foldopen:remove 'hor'
+
 local undodir = vim.fn.stdpath 'data' .. '/undo'
 
 local function clean_old_undo_files()

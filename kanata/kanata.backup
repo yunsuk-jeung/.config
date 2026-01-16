@@ -1,16 +1,26 @@
-;; Basic home row mods example using QWERTY
-;; For a more complex but perhaps usable configuration,
-;; see home-row-mod-advanced.kbd
-
 (defcfg
   macos-dev-names-include(
     "Apple Internal Keyboard / Trackpad"
    )
   process-unmapped-keys yes
+  concurrent-tap-hold yes
 )
+
 (defsrc
-  a   s   d   f   j   k   l   ;
+    esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
+    lsgt 1    2    3    4    5    6    7    8    9    0    -    =    bspc
+    tab  q    w    e    r    t    y    u    i    o    p    [    ]
+    caps a    s    d    f    g    h    j    k    l    ;    '    \    ret
+    lsft grv  z    x    c    v    b    n    m    ,    .    /    rsft
+    fn   lctl lalt lmet           spc            rmet ralt
 )
+
+(defchordsv2
+  (w e) esc 30  first-release ()
+  (j i) ret 30  first-release ()
+  (i o) bspc 30  first-release ()
+)
+
 (defvar
   ;; Note: consider using different time values for your different fingers.
   ;; For example, your pinkies might be slower to release keys and index
@@ -18,6 +28,8 @@
   tap-time 200
   hold-time 150
 )
+
+
 (defalias
   a (tap-hold $tap-time $hold-time a lmet)
   s (tap-hold $tap-time $hold-time s lalt)
@@ -28,6 +40,17 @@
   l (tap-hold $tap-time $hold-time l lalt)
   ; (tap-hold $tap-time $hold-time ; lmet)
 )
+
+
 (deflayer base
-  @a  @s  @d  @f  @j  @k  @l  @;
+    ;; everything is exactly the same, only the f-row is changed.
+    ;; you can of course change any of the other mappings.
+    esc  🔅   🔆    ✗    ✗    f5    ✗    ◀◀   ▶⏸   ▶▶   🔇   🔉   🔊
+    lsgt 1    2    3    4    5    6    7    8    9    0    -    =    bspc
+    tab  q    w    e    r    t    y    u    i    o    p    [    ]
+    caps @a   @s   @d   @f   g    h    @j   @k   @l   @;   '    \    ret
+    lsft grv  z    x    c    v    b    n    m    ,    .    /    rsft
+    fn   lctl lalt lmet           spc            rmet ralt
 )
+
+

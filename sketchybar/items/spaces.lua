@@ -25,13 +25,13 @@ for _, monitor in ipairs(monitors) do
 		local i = k + workspace_offset
 		local selected = workspace == current_workspace
 
-		local space = sbar.add("item", "item." .. i, {
+		local space = sbar.add("item", "item." .. workspace, {
 			display = monitor,
 			icon = {
 				font = {
 					family = settings.font.numbers,
 				},
-				string = i,
+				string = workspace,
 				-- padding_left = settings.items.padding.left,
 				padding_left = settings.items.padding.left,
 				padding_right = settings.items.padding.left / 2,
@@ -63,10 +63,10 @@ for _, monitor in ipairs(monitors) do
 			},
 		})
 
-		spaces[i] = space
+		spaces[workspace] = space
 
 		-- Define the icons for open apps on each space initially
-		sbar.exec("aerospace list-windows --workspace " .. i .. " --format '%{app-name}' --json ", function(apps)
+		sbar.exec("aerospace list-windows --workspace " .. workspace .. " --format '%{app-name}' --json ", function(apps)
 			local icon_line = ""
 			local no_app = true
 			for i, app in ipairs(apps) do
@@ -188,10 +188,11 @@ local space_window_observer = sbar.add("item", {
 -- Event handles
 space_window_observer:subscribe("space_windows_change", function(env)
 	for i, workspace in ipairs(workspaces) do
-		sbar.exec("aerospace list-windows --workspace " .. i .. " --format '%{app-name}' --json ", function(apps)
+		sbar.exec("aerospace list-windows --workspace " .. workspace .. " --format '%{app-name}' --json ", function(apps)
+
 			local icon_line = ""
 			local no_app = true
-			for i, app in ipairs(apps) do
+			for _, app in ipairs(apps) do
 				no_app = false
 				local app_name = app["app-name"]
 				local lookup = app_icons[app_name]
@@ -204,7 +205,7 @@ space_window_observer:subscribe("space_windows_change", function(env)
 			end
 
 			sbar.animate("tanh", 10, function()
-				spaces[i]:set({
+				spaces[workspace]:set({
 					label = icon_line,
 				})
 			end)
@@ -214,7 +215,7 @@ end)
 
 space_window_observer:subscribe("aerospace_focus_change", function(env)
 	for i, workspace in ipairs(workspaces) do
-		sbar.exec("aerospace list-windows --workspace " .. i .. " --format '%{app-name}' --json ", function(apps)
+		sbar.exec("aerospace list-windows --workspace " .. workspace .. " --format '%{app-name}' --json ", function(apps)
 			local icon_line = ""
 			local no_app = true
 			for i, app in ipairs(apps) do
@@ -230,7 +231,7 @@ space_window_observer:subscribe("aerospace_focus_change", function(env)
 			end
 
 			sbar.animate("tanh", 10, function()
-				spaces[i]:set({
+				spaces[workspace]:set({
 					label = icon_line,
 				})
 			end)
