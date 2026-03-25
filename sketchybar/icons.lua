@@ -27,7 +27,7 @@ return {
 		_25 = "􀛩",
 		_0 = "􀛪",
 		charging = "󱐋",
-		-- charging = "󱐋􀢋",
+		-- charging = "󱐋􀢋"
 	},
 	wifi = {
 		upload = "􀄨",

@@ -3,7 +3,7 @@ local icons = require("icons")
 
 return {
 	paddings = 3,
-	group_paddings = 5,
+	group_paddings = 3,
 	modes = {
 		main = {
 			icon = icons.apple,
@@ -25,7 +25,7 @@ return {
 		-- background = colors.bar.bg
 	},
 	items = {
-		height = 26,
+		height = 22,
 		gap = 5,
 		padding = {
 			right = 16,

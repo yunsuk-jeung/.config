@@ -17,7 +17,7 @@ vim.api.nvim_create_autocmd('VimEnter', {
   callback = clean_old_undo_files,
 })
 
-vim.wo.number = true -- Make line numbers default (default: false)
+vim.o.number = true -- Make line numbers default (default: false)
 vim.o.relativenumber = true -- Set relative numbered lines (default: false)
 vim.o.clipboard = 'unnamedplus' -- Sync clipboard between OS and Neovim. (default: '')
 vim.o.wrap = false -- Display lines as one long line (default: true)
@@ -59,7 +59,6 @@ vim.o.completeopt = 'menuone,noselect' -- Set completeopt to have a better compl
 vim.opt.shortmess:append 'c' -- Don't give |ins-completion-menu| messages (default: does not include 'c')
 vim.opt.iskeyword:append '-' -- Hyphenated words recognized by searches (default: does not include '-')
 vim.opt.runtimepath:remove '/usr/share/vim/vimfiles' -- Separate Vim plugins from Neovim in case Vim still in use (default: includes this path if Vim is installed)
-
 vim.api.nvim_create_autocmd('BufWinEnter', {
   command = 'set formatoptions-=cro',
 })

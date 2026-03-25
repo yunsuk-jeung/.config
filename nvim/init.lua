@@ -54,4 +54,13 @@ require('lazy').setup {
   require 'plugins.codes',
   require 'plugins.toggleterm',
   require 'plugins.dbee',
+  require 'plugins.kitty-scrollback',
 }
+
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'kitty-scrollback',
+  callback = function()
+    vim.opt_local.number = true
+    vim.opt_local.relativenumber = true
+  end,
+})
