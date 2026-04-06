@@ -91,17 +91,29 @@ return {
       --   ensure_installed = vim.tbl_keys(servers or {}),
       -- }
 
-      -- nvim-lspconfig: 실제 서버 설정(on_attach, capabilities 등 직접 처리)
-      local lspconfig = require 'lspconfig'
       local capabilities = require('cmp_nvim_lsp').default_capabilities()
       local on_attach = require 'plugins.lspattach'
 
-      for server_name, server_opts in pairs(servers) do
-        server_opts = vim.tbl_deep_extend('force', {
-          capabilities = capabilities,
-          on_attach = on_attach,
-        }, server_opts or {})
-        lspconfig[server_name].setup(server_opts)
+      -- Neovim 0.11+ API
+      if vim.lsp.config and vim.lsp.enable then
+        for server_name, server_opts in pairs(servers) do
+          server_opts = vim.tbl_deep_extend('force', {
+            capabilities = capabilities,
+            on_attach = on_attach,
+          }, server_opts or {})
+          vim.lsp.config(server_name, server_opts)
+          vim.lsp.enable(server_name)
+        end
+      else
+        -- Backward compatibility for older Neovim versions
+        local lspconfig = require 'lspconfig'
+        for server_name, server_opts in pairs(servers) do
+          server_opts = vim.tbl_deep_extend('force', {
+            capabilities = capabilities,
+            on_attach = on_attach,
+          }, server_opts or {})
+          lspconfig[server_name].setup(server_opts)
+        end
       end
     end,
   },
