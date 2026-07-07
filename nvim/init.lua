@@ -18,6 +18,7 @@ if vim.g.vscode then
   require('lazy').setup {
     require 'plugins.surround',
   }
+  return
 end
 
 -- Plugin etup using lazy.nvim

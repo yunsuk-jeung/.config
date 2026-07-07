@@ -1,6 +1,13 @@
 local map = vim.keymap.set
 local opts = { noremap = true, silent = true }
 
+-- Don't report line-count changes from delete/yank/put ("3 fewer lines", "4 more lines", ...)
+vim.opt.report = 9999
+
+-- Silence undo/redo info messages ("Already at oldest change", "N more lines", ...)
+map('n', 'u', '<Cmd>silent! undo<CR>', opts)
+map('n', '<C-r>', '<Cmd>silent! redo<CR>', opts)
+
 -- Normal mode mappings for folding
 map('n', 'za', "<Cmd>call VSCodeNotify('editor.toggleFold')<CR>", opts)
 map('n', 'zR', "<Cmd>call VSCodeNotify('editor.unfoldAll')<CR>", opts)
