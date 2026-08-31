@@ -12,6 +12,8 @@ vim.keymap.set('n', '<M-s>', '<cmd> w <CR>', opts)
 vim.keymap.set('i', '<M-s>', '<cmd> w<CR><Esc>', opts)
 vim.keymap.set('n', '<D-s>', '<cmd> w <CR>', opts)
 vim.keymap.set('i', '<D-s>', '<cmd> w<CR><Esc>', opts)
+vim.keymap.set('n', '<C-s>', '<cmd> w <CR>', opts)
+vim.keymap.set('i', '<C-s>', '<cmd> w<CR><Esc>', opts)
 -- quit file
 vim.keymap.set('n', '<C-q>', '<cmd> q <CR>', opts)
 
@@ -76,7 +78,7 @@ end, { desc = 'Go to next diagnostic message' })
 vim.keymap.set('n', '<leader>d', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
 
--- vim.keymap.set('n', '<Esc>', ':set nohlsearch<CR>')
+vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>', opts)
 vim.keymap.set('v', 'y', 'y`>', opts)
 -- vim.keymap.set('n', '<leader>b', 'gcc', opts)
 -- vim.keymap.set('v', '<-_>', 'gc', opts)
