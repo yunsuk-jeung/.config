@@ -14,16 +14,25 @@ return {
     },
     opts = {},
     config = function()
-      local comment = require 'Comment'
-      local ts_comment_integration = require 'ts_context_commentstring.integrations.comment_nvim'
+      local ft = require 'Comment.ft'
+      local ts_pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook()
+
+      -- Keep XML-family buffers on an explicit HTML-style commentstring.
+      ft.set('xml', { '<!-- %s -->', '<!-- %s -->' })
+      ft.set('xsd', { '<!-- %s -->', '<!-- %s -->' })
+      ft.set('xslt', { '<!-- %s -->', '<!-- %s -->' })
+
+      local pre_hook = function(ctx)
+        local ok, cstr = pcall(ts_pre_hook, ctx)
+        if ok and type(cstr) == 'string' and cstr:find '%%s' then
+          return cstr
+        end
+
+        return ft.get(vim.bo.filetype, ctx.ctype) or vim.bo.commentstring
+      end
 
       require('Comment').setup {
-        pre_hook = function(ctx)
-          local filetype = vim.bo.filetype
-          if filetype == 'typescriptreact' or filetype == 'javascriptreact' then
-            return ts_comment_integration.create_pre_hook()(ctx)
-          end
-        end,
+        pre_hook = pre_hook,
       }
       local opts = { noremap = true, silent = true }
       vim.keymap.set('n', '<C-_>', require('Comment.api').toggle.linewise.current, opts)

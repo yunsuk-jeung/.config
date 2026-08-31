@@ -23,6 +23,22 @@ return {
       -- [[ Configure Telescope ]]
       -- See `:help telescope` and `:help telescope.setup()`
       --
+      local function pick_find_command()
+        if vim.fn.executable 'rg' == 1 then
+          return { vim.fn.exepath 'rg', '--files', '--hidden', '-g', '!.git' }
+        end
+
+        if vim.fn.executable 'fd' == 1 then
+          return { vim.fn.exepath 'fd', '--type', 'f', '--hidden', '--exclude', '.git' }
+        end
+
+        if vim.fn.executable 'fdfind' == 1 then
+          return { vim.fn.exepath 'fdfind', '--type', 'f', '--hidden', '--exclude', '.git' }
+        end
+
+        return nil
+      end
+
       require('telescope').setup {
         defaults = {
           file_ignore_patterns = { '%__virtual.cs$' },
@@ -97,7 +113,9 @@ return {
 
       vim.keymap.set('n', '<leader>sx', require('telescope.builtin').git_files, { desc = '[S]earch [G]it Files' })
       vim.keymap.set('n', '<leader>sf', function()
-        require('telescope.builtin').find_files { find_command = { 'rg', '--files', '--hidden', '-g', '!.git' } }
+        local find_command = pick_find_command()
+
+        require('telescope.builtin').find_files(find_command and { find_command = find_command } or {})
       end, { desc = '[S]earch [F]iles' })
       vim.keymap.set('n', '<leader>sn', function()
         require('telescope.builtin').find_files { cwd = vim.fn.stdpath 'config' }

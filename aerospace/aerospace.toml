@@ -194,10 +194,10 @@ shift-down = ['volume set 0', 'mode main']
 # if.app-id = "dev.warp.Warp-Stble"
 # run = 'move-node-to-workspace T'
 
-# [[on-window-detected]]
-# if.app-name-regex-substring = 'dbeaver'
-# check-further-callbacks = true
-# run = ['layout floating']
+[[on-window-detected]]
+if.app-name-regex-substring = '04_clear_screen'
+check-further-callbacks = true
+run = ['layout floating']
 
 [workspace-to-monitor-force-assignment]
 # 1 = 'main'

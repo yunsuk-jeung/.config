@@ -22,6 +22,15 @@ return {
 
       -- mason-lspconfig: 설치할 서버 목록 관리
       local servers = {
+        clangd = {
+          cmd = {
+            'clangd',
+            '--background-index',
+            '--clang-tidy',
+            '--header-insertion=iwyu',
+            '--completion-style=detailed',
+          },
+        },
         basedpyright = {},
         ts_ls = {},
         emmet_ls = {},

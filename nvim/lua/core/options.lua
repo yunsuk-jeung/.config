@@ -6,6 +6,14 @@ vim.o.directory = vim.fn.stdpath 'data' .. '/swap'
 
 vim.opt.foldopen:remove 'hor'
 
+-- Tmux와 Vim간의 키 입력 문제 해결
+-- Terminal 설정으로 Ctrl 키가 제대로 전달되도록 함
+if os.getenv 'TMUX' then
+  vim.env.TERM = 'tmux-256color'
+else
+  vim.env.TERM = 'xterm-256color'
+end
+
 local undodir = vim.fn.stdpath 'data' .. '/undo'
 
 local function clean_old_undo_files()
@@ -20,9 +28,18 @@ vim.api.nvim_create_autocmd('VimEnter', {
 vim.o.number = true -- Make line numbers default (default: false)
 vim.o.relativenumber = true -- Set relative numbered lines (default: false)
 vim.o.clipboard = 'unnamedplus' -- Sync clipboard between OS and Neovim. (default: '')
+if vim.g.vscode then
+  -- Use vscode-neovim clipboard bridge to avoid external provider errors.
+  vim.schedule(function()
+    if vim.g.vscode_clipboard then
+      vim.g.clipboard = vim.g.vscode_clipboard
+    end
+  end)
+end
 vim.o.wrap = false -- Display lines as one long line (default: true)
 vim.o.linebreak = true -- Companion to wrap, don't split words (default: false)
 vim.o.mouse = 'a' -- Enable mouse mode (default: '')
+vim.opt.guicursor = 'n:block,' .. 'i:ver25,' .. 'r:hor20'
 vim.o.autoindent = true -- Copy indent from current line when starting new one (default: true)
 vim.o.ignorecase = true -- Case-insensitive searching UNLESS \C or capital in search (default: false)
 vim.o.smartcase = true -- Smart case (default: false)
@@ -48,7 +65,7 @@ vim.o.pumheight = 10 -- Pop up menu height (default: 0)
 vim.o.conceallevel = 0 -- So that `` is visible in markdown files (default: 1)
 vim.wo.signcolumn = 'yes' -- Keep signcolumn on by default (default: 'auto')
 vim.o.fileencoding = 'utf-8' -- The encoding written to a file (default: 'utf-8')
-vim.o.cmdheight = 1 -- More space in the Neovim command line for displaying messages (default: 1)
+vim.o.cmdheight = vim.g.vscode and 4 or 1 -- Increase in VSCode to reduce output-panel message popups
 vim.o.breakindent = true -- Enable break indent (default: false)
 vim.o.updatetime = 250 -- Decrease update time (default: 4000)
 vim.o.timeoutlen = 1000 -- Time to wait for a mapped sequence to complete (in milliseconds) (default: 1000)

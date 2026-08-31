@@ -21,7 +21,7 @@ if vim.g.vscode then
   return
 end
 
--- Plugin etup using lazy.nvim
+-- Plugin setup using lazy.nvim
 require('lazy').setup {
   require 'plugins.neotree',
   require 'plugins.colortheme',

@@ -1,6 +1,13 @@
 return {
   'nvim-neo-tree/neo-tree.nvim',
   branch = 'v3.x',
+  cmd = 'Neotree',
+  keys = {
+    { '\\', ':Neotree reveal<cr>', desc = 'Neotree reveal', silent = true },
+    { '<leader>E', ':Neotree toggle position=right<CR>', desc = 'Neotree (right)', silent = true },
+    { '<leader>e', ':Neotree toggle position=float<CR>', desc = 'Neotree (float)', silent = true },
+    { '<leader>ngs', ':Neotree float git_status<CR>', desc = 'Neotree git status', silent = true },
+  },
   dependencies = {
     'nvim-lua/plenary.nvim',
     'nvim-tree/nvim-web-devicons',

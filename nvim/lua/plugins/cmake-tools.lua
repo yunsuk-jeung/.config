@@ -1,5 +1,20 @@
 return {
   'Civitasv/cmake-tools.nvim',
+  ft = { 'c', 'cpp', 'cmake' },
+  cmd = {
+    'CMakeGenerate',
+    'CMakeBuild',
+    'CMakeRun',
+    'CMakeDebug',
+    'CMakeSelectBuildType',
+    'CMakeSelectBuildTarget',
+    'CMakeSelectLaunchTarget',
+    'CMakeSelectKit',
+    'CMakeSelectConfigurePreset',
+    'CMakeSelectBuildPreset',
+    'CMakeClean',
+    'CMakeInstall',
+  },
   config = function()
     local osys = require 'cmake-tools.osys'
     require('cmake-tools').setup {

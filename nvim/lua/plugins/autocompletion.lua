@@ -1,5 +1,6 @@
 return { -- Autocompletion
   'hrsh7th/nvim-cmp',
+  event = { 'InsertEnter', 'CmdlineEnter' },
   dependencies = {
     -- Snippet Engine & its associated nvim-cmp source
     'L3MON4D3/LuaSnip',
@@ -68,7 +69,8 @@ return { -- Autocompletion
         ['<C-p>'] = cmp.mapping.select_prev_item(),
 
         ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-        ['<C-f>'] = cmp.mapping.scroll_docs(4),
+        -- Keep Ctrl-f free for VS Code's find widget when running inside vscode-neovim.
+        ['<C-f>'] = not vim.g.vscode and cmp.mapping.scroll_docs(4) or nil,
         -- ['<C-y>'] = cmp.mapping.confirm { select = false },
 
         ['<CR>'] = cmp.mapping.confirm { select = false },

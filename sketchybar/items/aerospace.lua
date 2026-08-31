@@ -37,27 +37,57 @@ function parse_string_to_table(s)
 end
 
 function get_workspaces()
-    local file = io.popen("aerospace list-workspaces --all")
-    local result = file:read("*a")
-    file:close()
+    local max_retries = 20
+    for attempt = 1, max_retries do
+        local file = io.popen("aerospace list-workspaces --all 2>/dev/null")
+        local result = file:read("*a")
+        file:close()
 
-    return parse_string_to_table(result)
+        local workspaces = parse_string_to_table(result)
+        if #workspaces > 0 then
+            return workspaces
+        end
+
+        os.execute("sleep 0.5")
+    end
+
+    return {}
 end
 
 function get_current_workspace()
-    local file = io.popen("aerospace list-workspaces --focused")
-    local result = file:read("*a")
-    file:close()
+    local max_retries = 20
+    for attempt = 1, max_retries do
+        local file = io.popen("aerospace list-workspaces --focused 2>/dev/null")
+        local result = file:read("*a")
+        file:close()
 
-    return parse_string_to_table(result)[1]
+        local workspaces = parse_string_to_table(result)
+        if #workspaces > 0 then
+            return workspaces[1]
+        end
+
+        os.execute("sleep 0.5")
+    end
+
+    return nil
 end
 
 function get_monitors()
-    local file = io.popen("aerospace list-monitors | awk '{print $1}'")
-    local result = file:read("*a")
-    file:close()
+    local max_retries = 20
+    for attempt = 1, max_retries do
+        local file = io.popen("aerospace list-monitors 2>/dev/null | awk '{print $1}'")
+        local result = file:read("*a")
+        file:close()
 
-    return parse_string_to_table(result)
+        local monitors = parse_string_to_table(result)
+        if #monitors > 0 then
+            return monitors
+        end
+
+        os.execute("sleep 0.5")
+    end
+
+    return {}
 end
 
 function get_workspaces_on_monitor(monitor)

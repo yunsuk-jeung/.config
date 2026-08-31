@@ -15,8 +15,9 @@ local on_attach = function(client, bufnr)
   nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
   nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
 
-  nmap('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
+  nmap('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinitions')
   nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
+  nmap('<leader>gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinitions')
   nmap('gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
   nmap('<leader>D', require('telescope.builtin').lsp_type_definitions, 'Type [D]efinition')
   nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
@@ -40,7 +41,12 @@ local on_attach = function(client, bufnr)
 
   -- Create a command `:Format` local to the LSP buffer
   vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
-    vim.lsp.buf.format()
+    local ok, conform = pcall(require, 'conform')
+    if ok then
+      conform.format { bufnr = bufnr, lsp_format = 'fallback' }
+      return
+    end
+    vim.lsp.buf.format { bufnr = bufnr }
   end, { desc = 'Format current buffer with LSP' })
 
   -- if client:supports_method 'textDocument/foldingRange' then

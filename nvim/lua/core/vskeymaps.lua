@@ -8,6 +8,9 @@ vim.opt.report = 9999
 map('n', 'u', '<Cmd>silent! undo<CR>', opts)
 map('n', '<C-r>', '<Cmd>silent! redo<CR>', opts)
 
+-- Let VS Code handle its native find shortcut (Ctrl-f is freed for this in cmp/neoscroll).
+map({ 'n', 'x', 'i' }, '<C-f>', "<Cmd>call VSCodeNotify('actions.find')<CR>", opts)
+
 -- Normal mode mappings for folding
 map('n', 'za', "<Cmd>call VSCodeNotify('editor.toggleFold')<CR>", opts)
 map('n', 'zR', "<Cmd>call VSCodeNotify('editor.unfoldAll')<CR>", opts)
