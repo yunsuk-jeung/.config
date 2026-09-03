@@ -9,15 +9,13 @@ return {
     },
     config = function()
       -- mason: LSP 서버 설치만 담당
+      -- NOTE: mason.setup 에는 `build` 옵션이 없다. roslyn/rzls 설치는
+      -- 아래 mason-tool-installer 의 ensure_installed 에서 처리한다.
       require('mason').setup {
         registries = {
           'github:mason-org/mason-registry',
           'github:crashdummyy/mason-registry',
         },
-        build = function()
-          vim.cmd 'MasonInstall roslyn'
-          vim.cmd 'MasonInstall rzls'
-        end,
       }
 
       -- mason-lspconfig: 설치할 서버 목록 관리
@@ -90,15 +88,32 @@ return {
         },
       }
 
-      -- -- mason-lspconfig: 설치할 서버 목록만 지정
-      -- require('mason-lspconfig').setup {
-      --   ensure_installed = vim.tbl_keys(servers or {}),
-      -- }
-      --
-      -- -- mason-tool-installer: 추가 툴 설치 (필요시)
-      -- require('mason-tool-installer').setup {
-      --   ensure_installed = vim.tbl_keys(servers or {}),
-      -- }
+      -- mason-lspconfig v2: ensure_installed 는 lspconfig 서버명을 그대로 받는다.
+      -- 서버 활성화(vim.lsp.enable)는 아래에서 직접 하므로 automatic_enable 은 끈다.
+      require('mason-lspconfig').setup {
+        ensure_installed = vim.tbl_keys(servers),
+        automatic_enable = false,
+      }
+
+      -- mason-tool-installer: LSP 가 아닌 포매터/린터 등 추가 툴
+      local has_dotnet = function()
+        return vim.fn.executable 'dotnet' == 1
+      end
+
+      require('mason-tool-installer').setup {
+        ensure_installed = {
+          'stylua', -- lua formatter (conform)
+          'prettier', -- js/ts/yaml/prisma formatter (conform)
+          -- NOTE: black / sqlfluff 는 mason 이 python>=3.10 을 요구하는데
+          -- PATH 의 python 이 3.9 라서 제외했다. `brew install python` 후 되살릴 것.
+          -- 'black', -- python formatter (conform)
+          -- 'sqlfluff', -- sql linter/formatter (none-ls)
+          { 'csharpier', condition = has_dotnet }, -- cs formatter (conform)
+          { 'roslyn', condition = has_dotnet }, -- roslyn.nvim
+          { 'rzls', condition = has_dotnet }, -- roslyn.nvim (razor)
+        },
+        run_on_start = true,
+      }
 
       local capabilities = require('cmp_nvim_lsp').default_capabilities()
       local on_attach = require 'plugins.lspattach'
@@ -126,25 +141,20 @@ return {
       end
     end,
   },
-  -- {
-  --   'jay-babu/mason-null-ls.nvim',
-  --   dependencies = {
-  'nvimtools/none-ls.nvim',
-  --   'williamboman/mason.nvim',
-  -- },
-  config = function()
-    -- require('mason-null-ls').setup {
-    --   ensure_installed = { 'sqlfluff' },
-    --   automatic_installation = true,
-    -- }
-    local null_ls = require 'null-ls'
-    null_ls.setup {
-      sources = {
-        null_ls.builtins.diagnostics.sqlfluff,
-        null_ls.builtins.formatting.sqlfluff,
-      },
-      on_attach = require 'plugins.lspattach',
-    }
-  end,
-  -- },
+  {
+    'nvimtools/none-ls.nvim',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    config = function()
+      local null_ls = require 'null-ls'
+      null_ls.setup {
+        sources = {
+          -- NOTE: sqlfluff 는 python>=3.10 이 필요해 현재 설치 대상에서 제외.
+          -- `brew install python` 후 lsp.lua 의 ensure_installed 와 함께 되살릴 것.
+          -- null_ls.builtins.diagnostics.sqlfluff,
+          -- null_ls.builtins.formatting.sqlfluff,
+        },
+        on_attach = require 'plugins.lspattach',
+      }
+    end,
+  },
 }

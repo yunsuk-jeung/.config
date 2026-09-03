@@ -35,11 +35,17 @@ return {
         pre_hook = pre_hook,
       }
       local opts = { noremap = true, silent = true }
-      vim.keymap.set('n', '<C-_>', require('Comment.api').toggle.linewise.current, opts)
+      -- Ctrl+/ arrives as <C-_> (legacy 0x1F, e.g. inside tmux) or as <C-/>
+      -- (kitty keyboard protocol, e.g. kitty/wezterm directly). Map both.
+      for _, key in ipairs { '<C-_>', '<C-/>' } do
+        vim.keymap.set('n', key, require('Comment.api').toggle.linewise.current, opts)
+      end
       -- -- vim.keymap.set('n', 'gl', require('Comment.api').toggle.blockwise.current, opts)
       -- -- vim.keymap.set('n', '<C-c>', require('Comment.api').toggle.linewise.current, opts)
       -- -- vim.keymap.set('n', '<C-/>', require('Comment.api').toggle.linewise.current, opts)
-      vim.keymap.set('v', '<C-_>', "<esc><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<cr>", opts)
+      for _, key in ipairs { '<C-_>', '<C-/>' } do
+        vim.keymap.set('v', key, "<esc><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<cr>", opts)
+      end
       -- -- vim.keymap.set('v', '<C-c>', "<esc><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<cr>", opts)
       -- -- vim.keymap.set('v', '<C-/>', "<esc><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<cr>", opts)
       vim.keymap.set('n', '<C-B>', require('Comment.api').toggle.blockwise.current, opts)

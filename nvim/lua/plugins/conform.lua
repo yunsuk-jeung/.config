@@ -5,7 +5,7 @@ return {
     require('conform').setup {
       formatters_by_ft = {
         lua = { 'stylua' },
-        python = { 'black' },
+        -- python = { 'black' }, -- black 미설치(python>=3.10 필요) -> lsp_format fallback
         rust = { 'rustfmt', lsp_format = 'fallback' },
         javascript = { 'prettier' },
         javascriptreact = { 'prettier' },

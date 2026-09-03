@@ -5,6 +5,8 @@ local settings = require("settings")
 local apple = sbar.add("item", {
 	icon = {
 		font = {
+			-- apple/nuke 글리프는 SF Symbols 에 없으므로 이 아이템만 Nerd Font 사용
+			family = settings.font.nerd,
 			size = 22.0,
 		},
 		string = settings.modes.main.icon,

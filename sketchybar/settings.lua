@@ -47,15 +47,20 @@ return {
 
 	icons = "sketchybar-app-font:Regular:16.0", -- alternatively available: NerdFont
 
+	-- NOTE: icons.lua 의 아이콘 대부분이 SF Symbols 전용 글리프(U+100xxx)라
+	-- Nerd Font 로 두면 두부(tofu)로 깨진다. SF Pro / SF Mono 필요:
+	--   brew install --cask font-sf-pro font-sf-mono
 	font = {
-		text = "FiraCode Nerd Font Mono", -- Used for text
-		numbers = "FiraCode Nerd Font Mono", -- Used for numbers
+		text = "SF Pro", -- Used for text
+		numbers = "SF Mono", -- Used for numbers
+		-- SF Symbols 에 대응 글리프가 없는 아이콘(apple/nuke)만 이 폰트로 렌더한다.
+		nerd = "FiraCode Nerd Font Mono",
 		style_map = {
 			["Regular"] = "Regular",
-			["Semibold"] = "Medium",
-			["Bold"] = "SemiBold",
-			["Heavy"] = "Bold",
-			["Black"] = "ExtraBold",
+			["Semibold"] = "Semibold",
+			["Bold"] = "Bold",
+			["Heavy"] = "Heavy",
+			["Black"] = "Black",
 		},
 	},
 }

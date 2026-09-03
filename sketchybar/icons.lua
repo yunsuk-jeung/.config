@@ -26,8 +26,8 @@ return {
 		_50 = "􀺶",
 		_25 = "􀛩",
 		_0 = "􀛪",
-		charging = "󱐋",
-		-- charging = "󱐋􀢋"
+		-- bolt.fill (SF Symbols). Nerd Font 번개(U+F140B)는 SF Pro 에 없어 교체함.
+		charging = "􀋦",
 	},
 	wifi = {
 		upload = "􀄨",

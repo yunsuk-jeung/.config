@@ -1,2 +1,9 @@
 **/.DS_Store
-raycast/
+*.bak
+
+# Raycast keeps its own extension cache here; only our scripts are worth tracking.
+raycast/*
+!raycast/scripts/
+
+# Installed by tpm via bootstrap.sh, never committed.
+tmux/plugins/

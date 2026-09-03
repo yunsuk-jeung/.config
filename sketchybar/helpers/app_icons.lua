@@ -43,6 +43,13 @@ return {
 	["DEVONthink 3"] = ":devonthink3:",
 	["Docker"] = ":docker:",
 	["Docker Desktop"] = ":docker:",
+	-- NAVER Whale: upstream sketchybar-app-font has no whale glyph (checked
+	-- through v2.0.83), so helpers/whale-glyph/build_whale_glyph.py traces the
+	-- silhouette out of Whale.app's .icns and injects it at U+E000. Re-run that
+	-- script after upgrading the font -- an upgrade overwrites the patched ttf.
+	-- aerospace reports "NAVER Whale"; CFBundleName is "Whale".
+	["NAVER Whale"] = "\u{E000}",
+	["Whale"] = "\u{E000}",
 	["Matlab"] = ":matlab:",
 	["VLC"] = ":vlc:",
 	["Alacritty"] = ":alacritty:",
